@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\LdSf.Domain\LdSf.Domain.csproj" />
+    <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="9.1.0" />
+  </ItemGroup>
+</Project>
+

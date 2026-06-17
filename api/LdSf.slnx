@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="src/LdSf.Domain/LdSf.Domain.csproj" />
+  <Project Path="src/LdSf.Application.Contracts/LdSf.Application.Contracts.csproj" />
+  <Project Path="src/LdSf.Application/LdSf.Application.csproj" />
+  <Project Path="src/LdSf.EntityFrameworkCore/LdSf.EntityFrameworkCore.csproj" />
+  <Project Path="src/LdSf.HttpApi/LdSf.HttpApi.csproj" />
+  <Project Path="src/LdSf.HttpApi.Host/LdSf.HttpApi.Host.csproj" />
+</Solution>
+

@@ -1,0 +1,12 @@
+bin/
+obj/
+api/LD.SF.Api/
+node_modules/
+dist/
+.gradle/
+build/
+local.properties
+.env
+.env.local
+*.user
+*.suo
