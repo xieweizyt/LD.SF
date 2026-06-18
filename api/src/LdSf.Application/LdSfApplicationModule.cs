@@ -1,12 +1,8 @@
-using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 
 namespace LdSf;
 
-[DependsOn(
-    typeof(LdSfApplicationContractsModule),
-    typeof(AbpAutoMapperModule))]
+[DependsOn(typeof(LdSfApplicationContractsModule))]
 public class LdSfApplicationModule : AbpModule
 {
 }
-

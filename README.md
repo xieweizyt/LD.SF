@@ -36,6 +36,7 @@ dotnet run
 如你的 SQL Server 地址不同，请修改 `api/LD.SF.Api/appsettings.json` 的 `ConnectionStrings:SqlServer`。
 
 当前源码使用 ABP + EF Core，并在开发启动时使用 `Database.EnsureCreated()` 自动建库建表，适合开发验证。正式项目建议改为 ABP/EF Core Migrations。
+启动时会先尝试连接 SQL Server 的 `master` 库并自动创建目标数据库，再执行建表和种子数据初始化。
 
 内置演示账号：
 

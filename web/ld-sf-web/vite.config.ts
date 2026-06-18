@@ -18,13 +18,6 @@ export default defineConfig(({ mode }) => {
       },
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@use "@/styles/index.scss" as *;`,
-        },
-      },
-    },
     server: {
       host: '0.0.0.0',
       port: 8080,
@@ -43,4 +36,3 @@ export default defineConfig(({ mode }) => {
     },
   }
 })
-
