@@ -3,16 +3,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Volo.Abp;
-using Volo.Abp.AspNetCore.Serilog;
-using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 
 namespace LdSf;
 
 [DependsOn(
-    typeof(AbpAutofacModule),
-    typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule),
     typeof(LdSfApplicationModule),
     typeof(LdSfEntityFrameworkCoreModule),
@@ -58,4 +54,3 @@ public class LdSfHttpApiHostModule : AbpModule
         app.UseConfiguredEndpoints();
     }
 }
-
