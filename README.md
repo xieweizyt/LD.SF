@@ -19,9 +19,17 @@ dotnet run
 
 请改为：
 
+先运行数据库迁移控制台：
+
+```powershell
+cd D:\项目\收发源码\LD.SF\api\src\LdSf.DbMigrator
+dotnet run
+```
+
+再启动 API：
+
 ```powershell
 cd D:\项目\收发源码\LD.SF\api\src\LdSf.HttpApi.Host
-dotnet restore
 dotnet run
 ```
 
@@ -35,8 +43,7 @@ dotnet run
 
 如你的 SQL Server 地址不同，请修改 `api/LD.SF.Api/appsettings.json` 的 `ConnectionStrings:SqlServer`。
 
-当前源码使用 ABP + EF Core，并在开发启动时使用 `Database.EnsureCreated()` 自动建库建表，适合开发验证。正式项目建议改为 ABP/EF Core Migrations。
-启动时会先尝试连接 SQL Server 的 `master` 库并自动创建目标数据库，再执行建表和种子数据初始化。
+当前源码使用 ABP + EF Core Migrations。`LdSf.DbMigrator` 控制台会先尝试连接 SQL Server 的 `master` 库并自动创建目标数据库，再执行 `Database.MigrateAsync()` 应用迁移，最后初始化种子数据。API Host 不再负责自动迁移数据库。
 
 内置演示账号：
 

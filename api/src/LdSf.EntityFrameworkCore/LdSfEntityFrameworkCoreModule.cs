@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.SqlServer;
 using Volo.Abp.Modularity;
 
@@ -13,15 +13,10 @@ public class LdSfEntityFrameworkCoreModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        context.Services.AddAbpDbContext<LdSfDbContext>(options =>
+        var configuration = context.Services.GetConfiguration();
+        context.Services.AddDbContext<LdSfDbContext>(options =>
         {
-            options.AddDefaultRepositories(includeAllEntities: true);
-        });
-
-        Configure<AbpDbContextOptions>(options =>
-        {
-            options.UseSqlServer();
+            options.UseSqlServer(configuration.GetConnectionString("Default"));
         });
     }
 }
-

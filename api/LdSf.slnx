@@ -5,5 +5,5 @@
   <Project Path="src/LdSf.EntityFrameworkCore/LdSf.EntityFrameworkCore.csproj" />
   <Project Path="src/LdSf.HttpApi/LdSf.HttpApi.csproj" />
   <Project Path="src/LdSf.HttpApi.Host/LdSf.HttpApi.Host.csproj" />
+  <Project Path="src/LdSf.DbMigrator/LdSf.DbMigrator.csproj" />
 </Solution>
-

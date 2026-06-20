@@ -9,7 +9,10 @@ public static class RsaEnvelopeService
 {
     public static EncryptedEnvelopeDto? TryEncrypt(string? publicKeyPem, AuthorizationPayloadDto payload)
     {
-        if (string.IsNullOrWhiteSpace(publicKeyPem)) return null;
+        if (string.IsNullOrWhiteSpace(publicKeyPem))
+        {
+            return null;
+        }
 
         try
         {
@@ -25,4 +28,3 @@ public static class RsaEnvelopeService
         }
     }
 }
-

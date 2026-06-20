@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.Data;
-using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.Domain.Entities;
 
 namespace LdSf;
 
-[ConnectionStringName("Default")]
-public class LdSfDbContext : AbpDbContext<LdSfDbContext>
+public class LdSfDbContext : DbContext
 {
     public DbSet<AdminUser> AdminUsers => Set<AdminUser>();
     public DbSet<Subaccount> Subaccounts => Set<Subaccount>();
@@ -27,6 +28,7 @@ public class LdSfDbContext : AbpDbContext<LdSfDbContext>
         {
             b.ToTable("LdSfAdminUsers");
             b.HasKey(x => x.Id);
+            ConfigureAggregateRoot(b);
             b.Property(x => x.UserName).HasMaxLength(64).IsRequired();
             b.HasIndex(x => x.UserName).IsUnique();
             b.Property(x => x.DisplayName).HasMaxLength(64).IsRequired();
@@ -38,6 +40,7 @@ public class LdSfDbContext : AbpDbContext<LdSfDbContext>
         {
             b.ToTable("LdSfSubaccounts");
             b.HasKey(x => x.Id);
+            ConfigureAggregateRoot(b);
             b.Property(x => x.PublicId).HasMaxLength(32).IsRequired();
             b.HasIndex(x => x.PublicId).IsUnique();
             b.Property(x => x.Name).HasMaxLength(100).IsRequired();
@@ -47,6 +50,7 @@ public class LdSfDbContext : AbpDbContext<LdSfDbContext>
         {
             b.ToTable("LdSfAuthorizationCodes");
             b.HasKey(x => x.Id);
+            ConfigureAggregateRoot(b);
             b.Property(x => x.Identifier).HasMaxLength(64).IsRequired();
             b.HasIndex(x => x.Identifier).IsUnique();
             b.Property(x => x.AppPublicKeyPem).HasColumnType("nvarchar(max)");
@@ -56,6 +60,7 @@ public class LdSfDbContext : AbpDbContext<LdSfDbContext>
         {
             b.ToTable("LdSfSmsTasks");
             b.HasKey(x => x.Id);
+            ConfigureAggregateRoot(b);
             b.Property(x => x.TaskName).HasMaxLength(100).IsRequired();
             b.Property(x => x.Content1).HasColumnType("nvarchar(max)");
             b.Property(x => x.Content2).HasColumnType("nvarchar(max)");
@@ -74,6 +79,7 @@ public class LdSfDbContext : AbpDbContext<LdSfDbContext>
         {
             b.ToTable("LdSfSendRecords");
             b.HasKey(x => x.Id);
+            ConfigureAggregateRoot(b);
             b.Property(x => x.PhoneNumber).HasMaxLength(32).IsRequired();
             b.Property(x => x.Content).HasColumnType("nvarchar(max)");
             b.HasIndex(x => x.TaskId);
@@ -84,10 +90,27 @@ public class LdSfDbContext : AbpDbContext<LdSfDbContext>
         {
             b.ToTable("LdSfUsageLedgers");
             b.HasKey(x => x.Id);
+            ConfigureAggregateRoot(b);
             b.Property(x => x.Identifier).HasMaxLength(64).IsRequired();
             b.Property(x => x.Note).HasMaxLength(256);
             b.HasIndex(x => x.Identifier);
         });
     }
-}
 
+    private static void ConfigureAggregateRoot<TEntity>(EntityTypeBuilder<TEntity> b)
+        where TEntity : class, IHasExtraProperties, IHasConcurrencyStamp
+    {
+        var extraPropertiesConverter = new ValueConverter<ExtraPropertyDictionary, string>(
+            value => "{}",
+            value => new ExtraPropertyDictionary());
+
+        b.Property(x => x.ExtraProperties)
+            .HasConversion(extraPropertiesConverter)
+            .HasColumnType("nvarchar(max)")
+            .IsRequired();
+
+        b.Property(x => x.ConcurrencyStamp)
+            .HasMaxLength(40)
+            .IsRequired();
+    }
+}

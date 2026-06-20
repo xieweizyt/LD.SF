@@ -68,6 +68,48 @@ a {
   padding: 20px;
 }
 
+.table-panel {
+  min-width: 0;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+}
+
+.table-toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.toolbar-form {
+  min-width: 0;
+
+  .el-form-item {
+    margin-bottom: 0;
+  }
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.toolbar-select {
+  width: 240px;
+}
+
+.form-control {
+  width: 100%;
+}
+
+.data-table {
+  width: 100%;
+}
+
 .login-page {
   min-height: 100vh;
   display: grid;
@@ -83,4 +125,3 @@ a {
   margin-top: 8px;
   font-size: 28px;
 }
-

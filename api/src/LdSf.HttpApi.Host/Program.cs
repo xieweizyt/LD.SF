@@ -14,7 +14,6 @@ public class Program
         await builder.AddApplicationAsync<LdSfHttpApiHostModule>();
         var app = builder.Build();
         await app.InitializeApplicationAsync();
-        await SeedData.EnsureSeededAsync(app.Services);
         await app.RunAsync();
         return 0;
     }

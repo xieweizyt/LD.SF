@@ -10,3 +10,6 @@ local.properties
 .env.local
 *.user
 *.suo
+.vs/
+api/.vs/
+api/artifacts/

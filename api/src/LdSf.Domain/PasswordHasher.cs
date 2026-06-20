@@ -15,7 +15,11 @@ public static class PasswordHasher
     public static bool Verify(string password, string stored)
     {
         var parts = stored.Split('.');
-        if (parts.Length != 2) return false;
+        if (parts.Length != 2)
+        {
+            return false;
+        }
+
         var salt = Convert.FromBase64String(parts[0]);
         var expected = Convert.FromBase64String(parts[1]);
         var actual = Rfc2898DeriveBytes.Pbkdf2(password, salt, 100_000, HashAlgorithmName.SHA256, 32);
